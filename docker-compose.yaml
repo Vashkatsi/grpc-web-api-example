@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    image: grpc-web-example-server
+    container_name: grpc-web-example-server
+    ports:
+      - "50051:50051"
+
+  envoy:
+    build:
+      context: ./envoy
+      dockerfile: Dockerfile
+    image: grpc-web-example-envoy
+    container_name: grpc-web-example-envoy
+    depends_on:
+      - server
+    ports:
+      - "8080:8080"
+
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    image: grpc-web-example-client
+    container_name: grpc-web-example-client
+    depends_on:
+      - envoy
+    ports:
+      - "8081:8081"

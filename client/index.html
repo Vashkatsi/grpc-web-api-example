@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>gRPC-Web Test</title>
+    <script src="bundle.js"></script>
+</head>
+<body>
+<h1>gRPC-Web Test</h1>
+<input id="nameInput" type="text" placeholder="Enter your name"/>
+<button onclick="sendRequest()">Say Hello</button>
+<p id="response"></p>
+
+<script>
+    function sendRequest() {
+        const {HelloRequest} = window.example;
+        const {ExampleServiceClient} = window.exampleService;
+
+        const client = new ExampleServiceClient('http://localhost:8080', null, null);
+
+        const request = new HelloRequest();
+        const name = document.getElementById("nameInput").value || "World";
+        request.setName(name);
+
+        client.sayHello(request, {}, (err, response) => {
+            const respElement = document.getElementById("response");
+            if (err) {
+                respElement.innerText = "Error: " + err.message;
+            } else {
+                respElement.innerText = response.getMessage();
+            }
+        });
+    }
+</script>
+</body>
+</html>
