@@ -13,8 +13,8 @@ This repository shows how to run a Python gRPC service accessible from a browser
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Vashkatsi/grpc-web-api-example
-cd grpc-web-example
+git clone https://github.com/Vashkatsi/grpc-web-api-example.git
+cd grpc-web-api-example
 ```
 
 2. Build and run everything:
